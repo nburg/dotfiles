@@ -127,4 +127,8 @@ man() {
   man "$@"
 }
 
+get_dotfiles() {
+  bash -c "$(wget -qO- https://git.io/JfKL9)"
+}
+
 bash_main

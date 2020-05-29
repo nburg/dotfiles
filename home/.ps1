@@ -51,4 +51,3 @@ elif echo $HOSTNAME | egrep -q '^y'; then
 elif echo $HOSTNAME | egrep -q '^z'; then
   PS_HOST="\[\e[01;38;5;171m\]\h"
 fi
-PS_HOST="\[\e[01;38;5;151m\]\h"
