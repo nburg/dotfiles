@@ -14,4 +14,5 @@ for i in `ls -A`; do
   fi
   ln -s ~/.dotfiles/home/$i ~/$i
 done
+vim +PluginInstall +qall
 source ~/.bashrc
