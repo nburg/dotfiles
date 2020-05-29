@@ -15,5 +15,5 @@ for i in `ls -A`; do
   ln -s ~/.dotfiles/home/$i ~/$i
 done
 touch ~/.sudo_as_admin_successful
-vim +PluginInstall +qall
+vim -E -u NONE -S ~/.dotfiles/.vim/vundle.vim +PluginInstall +qall > /dev/null
 source ~/.bashrc
