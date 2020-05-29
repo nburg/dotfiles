@@ -14,5 +14,6 @@ for i in `ls -A`; do
   fi
   ln -s ~/.dotfiles/home/$i ~/$i
 done
+touch ~/.sudo_as_admin_successful
 vim +PluginInstall +qall
 source ~/.bashrc
