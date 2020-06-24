@@ -22,37 +22,32 @@ if [ -f $HOME/.dircolors ]; then
 fi
 
 bash_main() {
-# fix for secret-tool
-# if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
-#   eval `dbus-launch --sh-syntax`
-# fi
 ##### Environment Variables #####
-export PATH=$PATH:"~/scripts/bin:/opt/bin:/snap/bin"
+export PATH=$PATH:"/opt/bin:/snap/bin:/opt/puppetlabs/bin"
 EDITOR=/usr/bin/vim
 VISUAL=/usr/bin/vim
 HISTIGNORE="&:ls:ll:top:ps -ef"
 HISTCONTROL=ignoreboth:ignoredups:erasedups
 HISTSIZE=10000
+HISTFILESIZE=100000
+HISTTIMEFORMAT='%F %T '
 GLOBIGNORE=". .."
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
 
 ##### Aliases ##### 
 alias ll='ls -l'
 alias less='less -R'
 alias tmux="tmux -2"
-alias ssh="ssh -X"
-alias today="date +%Y%m%d"
-alias now="date +%Y%m%d%H%M"
+alias today='date +%Y%m%d'
+alias now='date +%Y%m%d%H%M'
 alias susu="sudo -s HOME=$HOME"
 
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 ##### Odd Shell Options #####
@@ -131,4 +126,16 @@ get_dotfiles() {
   bash -c "$(wget -qO- https://git.io/JfKL9)"
 }
 
+function ssh() {
+  command ssh -Xt $1 'bash -lc "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; bash'
+}
+
+wmip() {
+  curl ifconfig.co
+}
+
 bash_main
+
+if [ -f $HOME/.bashlocal ]; then
+  . $HOME/.bashlocal
+fi

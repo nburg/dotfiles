@@ -45,9 +45,10 @@ elif echo $HOSTNAME | egrep -q '^v'; then
 elif echo $HOSTNAME | egrep -q '^w'; then
   PS_HOST="\[\e[01;38;5;141m\]\h"
 elif echo $HOSTNAME | egrep -q '^x'; then
-  PS_HOST="\[\e[01;38;5;148m\]\h"
+  PS_HOST="\[\e[01;38;5;219m\]\h"
 elif echo $HOSTNAME | egrep -q '^y'; then
   PS_HOST="\[\e[01;38;5;165m\]\h"
 elif echo $HOSTNAME | egrep -q '^z'; then
   PS_HOST="\[\e[01;38;5;171m\]\h"
 fi
+#PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
