@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if command -v git &> /dev/null; then
+if ! command -v git &> /dev/null; then
   echo 'git not found'
   exit
 fi
@@ -20,7 +20,7 @@ for i in `ls -A`; do
   ln -s ~/.dotfiles/home/$i ~/$i
 done
 touch ~/.sudo_as_admin_successful
-if command -v vim &> /dev/null; then
+if ! command -v vim &> /dev/null; then
   vim -E -u NONE -S ~/.vim/vundle.vim +PluginInstall +qall > /dev/null
 fi
 source ~/.bashrc
