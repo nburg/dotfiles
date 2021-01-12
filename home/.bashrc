@@ -129,7 +129,7 @@ get_dotfiles() {
 }
 
 function ssh() {
-  command ssh -Xt $1 'if command -v wget; then; bash -lc "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; fi; bash'
+  command ssh -Xt $1 'if command -v wget &> /dev/null; then; bash -lc "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; fi; bash'
 }
 
 wmip() {
