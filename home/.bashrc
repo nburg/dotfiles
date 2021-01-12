@@ -107,8 +107,10 @@ pg() {
 }
 
 parse_git_branch() {
-  ref=$(git symbolic-ref HEAD 2>/dev/null) || return
-  echo "("${ref#refs/heads/}") "
+  if command -v git &> /dev/null; then
+    ref=$(git symbolic-ref HEAD 2>/dev/null) || return
+    echo "("${ref#refs/heads/}") "
+  fi
 }
 
 man() {
@@ -127,11 +129,19 @@ get_dotfiles() {
 }
 
 function ssh() {
-  command ssh -Xt $1 'bash -lc "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; bash'
+  command ssh -Xt $1 'if command -v wget; then; bash -lc "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; fi; bash'
 }
 
 wmip() {
   curl ifconfig.co
+}
+
+dict () {
+  curl dict://dict.org/d:$1 | less
+}
+
+weather () {
+  curl wttr.in/chicago
 }
 
 bash_main

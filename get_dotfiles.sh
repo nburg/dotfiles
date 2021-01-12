@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if command -v git; then
+  echo 'git not found'
+  exit
+fi
+
 if [ -d ~/.dotfiles ]; then
   cd ~/.dotfiles
   git pull
@@ -15,5 +20,7 @@ for i in `ls -A`; do
   ln -s ~/.dotfiles/home/$i ~/$i
 done
 touch ~/.sudo_as_admin_successful
-vim -E -u NONE -S ~/.vim/vundle.vim +PluginInstall +qall > /dev/null
+if command -v vim; then
+  vim -E -u NONE -S ~/.vim/vundle.vim +PluginInstall +qall > /dev/null
+fi
 source ~/.bashrc
