@@ -3,24 +3,22 @@ syntax on
 " Change map leader to something I remember
 let mapleader=','
 
-" Vundle junk
+" plug junk
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'jamessan/vim-gnupg'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'rodjek/vim-puppet'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'tpope/vim-fugitive'
-Plugin 'dracula/vim', { 'name': 'dracula' }
-call vundle#end()
+call plug#begin()
+Plug 'dracula/vim', { 'name': 'dracula' }
+Plug 'jamessan/vim-gnupg'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'xuyuanp/nerdtree-git-plugin'
+call plug#end()
+
 filetype plugin indent on
 
 " Set random options
@@ -57,7 +55,7 @@ map <leader>n :set number!<cr>
 map <leader>l :set cursorline!<cr>
 
 " Toggle NERDTree file browser
-map <leader>n :NERDTreeToggle<cr>
+map <leader>f :NERDTreeToggle<cr>
 
 " Toggle spell check
 map <leader>s :set spell!<cr>
@@ -97,14 +95,6 @@ autocmd FileType ruby map <F9> :!ruby "%:p"<CR>
 autocmd FileType mail set spell
 autocmd FileType mail set textwidth=80
 autocmd FileType mail set columns=80
-
-" Open links in browser
-function! Browser ()
-  let line = getline (".")
-  let line = matchstr (line, "\(https?://\|www\.\)[^ ,;\t]*")
-  exec "!google-chrome " . line
-endfunction
-map <Leader>f :call Browser ()<CR>
 
 " Printing
 set printoptions=paper:letter,duplex:off
