@@ -10,14 +10,21 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin()
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'jamessan/vim-gnupg'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'dense-analysis/ale'
 call plug#end()
+
+let g:ale_linters = {
+\   'python': ['pylint'],
+\   'ruby': ['rubocop'],
+\   'yaml': ['yamllint'],
+\}
+
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 filetype plugin indent on
 

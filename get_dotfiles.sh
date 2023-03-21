@@ -19,8 +19,4 @@ for i in `ls -A`; do
   fi
   ln -s ~/.dotfiles/home/$i ~/$i
 done
-touch ~/.sudo_as_admin_successful
-if ! command -v vim &> /dev/null; then
-  vim -E -u NONE -S ~/.vim/vundle.vim +PluginInstall +qall > /dev/null
-fi
 source ~/.bashrc

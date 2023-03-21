@@ -21,18 +21,23 @@ if [ -f $HOME/.dircolors ]; then
   eval $(dircolors -b $HOME/.dircolors)
 fi
 
+if [ -f $HOME/.bash_local ]; then
+  . $HOME/.bash_local
+fi
+
 bash_main() {
 ##### Environment Variables #####
-export PATH=$PATH:"/opt/bin:/snap/bin:/opt/puppetlabs/bin"
-EDITOR=/usr/bin/vim
-VISUAL=/usr/bin/vim
+export PATH=$PATH:"$HOME/.local/bin:/opt/bin:/opt/puppetlabs/bin"
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+export COLUMNS="120"
 HISTIGNORE="&:ls:ll:top:ps -ef"
 HISTCONTROL=ignoreboth:ignoredups:erasedups
 HISTSIZE=10000
 HISTFILESIZE=100000
 HISTTIMEFORMAT='%F %T '
 GLOBIGNORE=". .."
-PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
+#PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
 
 ##### Aliases ##### 
 alias ll='ls -l'
@@ -128,8 +133,8 @@ get_dotfiles() {
   bash -c "$(wget -qO- https://git.io/JfKL9)"
 }
 
-function ssh() {
-  command ssh -Xt $1 'if command -v wget &> /dev/null; then; bash -lc "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; fi; bash'
+ssh() {
+  command ssh -t $@ '/bin/bash -c "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; bash -l'
 }
 
 wmip() {
@@ -145,7 +150,3 @@ weather () {
 }
 
 bash_main
-
-if [ -f $HOME/.bashlocal ]; then
-  . $HOME/.bashlocal
-fi
