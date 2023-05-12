@@ -23,8 +23,12 @@ let g:ale_linters = {
 
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
+  \|   PlugInstall --sync
+  \|   q
   \| endif
+  \| let g:dracula_italic = 0
+  \| colorscheme dracula
+  \| highlight Normal ctermbg=None
 
 filetype plugin indent on
 
@@ -113,8 +117,3 @@ if has("autocmd")
 	set nosmartindent
 	filetype plugin indent on
 endif
-
-" set the colorscheme
-let g:dracula_italic = 0
-colorscheme dracula
-highlight Normal ctermbg=None
