@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/var/home/nburgess/.local/state/wireplumber'
+let g:netrw_dirhist_6='/etc/NetworkManager/dispatcher.d'
+let g:netrw_dirhist_5='/var/home/nburgess/.config/foot'
+let g:netrw_dirhist_4='/etc/ssl'
+let g:netrw_dirhist_3='/home/nburgess/working/pods/zoom-us'
+let g:netrw_dirhist_2='/etc/NetworkManager/dnsmasq.d'
+let g:netrw_dirhist_1='/etc/stubby'
