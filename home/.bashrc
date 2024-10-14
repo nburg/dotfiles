@@ -104,7 +104,7 @@ deterministic_rand() {
 
 build_ps1() {
   ## Build a PS1
-  colorcode=$(deterministic_rand $HOSTNAME 22 231)
+  colorcode=$(deterministic_rand $(hostname -s | sed s/[0-9][0-9]$//) 22 231)
   PS_HOST="\[\e[01;38;5;${colorcode}m\]\h"
   if (env | grep -Fq 'CONTAINER_ID'); then 
     colorcode=$(deterministic_rand $CONTAINER_ID 22 231)
