@@ -1,33 +1,14 @@
 #!/bin/bash
 # ~/.bashrc
 
-if [ -f /etc/bash/bashrc ]; then
-  . /etc/bash/bashrc
-fi
-
-if [ -f /etc/bash.bashrc ]; then
-  . /etc/bash.bashrc
-fi
-
-if [ -f /etc/profile ]; then
-  . /etc/profile
-fi
-
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-  . /etc/bash_completion
-fi
-
+bash_main() {
 if [ -f $HOME/.dircolors ]; then
   eval $(dircolors -b $HOME/.dircolors)
 fi
 
-if [ -f $HOME/.bash_local ]; then
-  . $HOME/.bash_local
-fi
+# User specific aliases and functions
 
-bash_main() {
 ##### Environment Variables #####
-export PATH=$PATH:"$HOME/bin:$HOME/.local/bin:/opt/bin:/opt/puppetlabs/bin"
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 export COLUMNS="120"
@@ -37,12 +18,10 @@ HISTSIZE=10000
 HISTFILESIZE=100000
 HISTTIMEFORMAT='%F %T '
 GLOBIGNORE=". .."
-#PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
 
 ##### Aliases ##### 
 alias ll='ls -l'
 alias less='less -R'
-alias tmux="tmux -2"
 alias today='date +%Y%m%d'
 alias now='date +%Y%m%d%H%M'
 alias susu="sudo -s HOME=$HOME CONTAINER_ID=$CONTAINER_ID"
@@ -111,9 +90,9 @@ build_ps1() {
     PS_HOST="$PS_HOST:\[\e[01;38;5;${colorcode}m\]${CONTAINER_ID}"
   fi
   if [ `whoami` == 'root' ]; then
-    PS1="\[\e]0;\h\a\]\[\e[34;1m\]\w\n${PS_HOST}\[\e[31;1m\] # \[\e[0m\]"
+    PS1="\[\e[34;1m\]\w\n${PS_HOST}\[\e[31;1m\] # \[\e[0m\]"
   else
-    PS1="\[\e]0;\h\a\]\[\e[34;1m\]\w\n${PS_HOST}\[\033[01;32m\] \$(parse_git_branch)\[\e[34;1m\]$ \[\e[0m\]"
+    PS1="\[\e[34;1m\]\w\n${PS_HOST}\[\033[01;32m\] \$(parse_git_branch)\[\e[34;1m\]$ \[\e[0m\]"
   fi
 }
 
@@ -149,3 +128,12 @@ weather () {
 }
 
 bash_main
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
+fi
+unset rc
