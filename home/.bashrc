@@ -45,7 +45,7 @@ umask 0022
 
 ##### Per term settings #####
 case $TERM in 
-  xterm*)
+  xterm*|tmux*|screen*)
     build_ps1
     ;;
   linux) 
@@ -58,7 +58,6 @@ case $TERM in
     PS1='\h \$ '
     ;;
 esac
-##
 
 ##### man colors #####
 export LESS_TERMCAP_mb=$'\e[1;31m'      # begin bold
@@ -85,14 +84,16 @@ build_ps1() {
   ## Build a PS1
   colorcode=$(deterministic_rand $(hostname -s | sed s/[0-9][0-9]$//) 22 231)
   PS_HOST="\[\e[01;38;5;${colorcode}m\]\h"
-  if (env | grep -Fq 'CONTAINER_ID'); then 
+  TITLE_HOST="\h"
+  if ! [[ -z $CONTAINER_ID ]]; then 
     colorcode=$(deterministic_rand $CONTAINER_ID 22 231)
     PS_HOST="$PS_HOST:\[\e[01;38;5;${colorcode}m\]${CONTAINER_ID}"
+    TITLE_HOST="\h:${CONTAINER_ID}"
   fi
   if [ `whoami` == 'root' ]; then
-    PS1="\[\e[34;1m\]\w\n${PS_HOST}\[\e[31;1m\] # \[\e[0m\]"
+    PS1="\[\e]0;${TITLE_HOST}\a\]\[\e[34;1m\]\w\n${PS_HOST}\[\e[31;1m\] # \[\e[0m\]"
   else
-    PS1="\[\e[34;1m\]\w\n${PS_HOST}\[\033[01;32m\] \$(parse_git_branch)\[\e[34;1m\]$ \[\e[0m\]"
+    PS1="\[\e]0;${TITLE_HOST}\a\]\[\e[34;1m\]\w\n${PS_HOST}\[\033[01;32m\] \$(parse_git_branch)\[\e[34;1m\]$ \[\e[0m\]"
   fi
 }
 
