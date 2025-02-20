@@ -4,15 +4,13 @@ syntax on
 let mapleader=','
 
 " plug junk
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin()
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'jamessan/vim-gnupg'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'dense-analysis/ale'
+Plug 'justinmk/vim-dirvish'
 call plug#end()
 
 let g:ale_linters = {
@@ -29,8 +27,6 @@ autocmd VimEnter *
   \| let g:dracula_italic = 0
   \| colorscheme dracula
   \| highlight Normal ctermbg=None
-
-filetype plugin indent on
 
 " Set random options
 set hlsearch
@@ -55,7 +51,6 @@ set noerrorbells
 set novisualbell
 set t_vb=
 
-
 " Toggle paste mode on and off
 map <leader>pp :set paste!<cr>
 
@@ -65,8 +60,11 @@ map <leader>n :set number!<cr>
 " Toggle line highlighting
 map <leader>l :set cursorline!<cr>
 
-" Toggle NERDTree file browser
-map <leader>f :NERDTreeToggle<cr>
+" Toggle Dirvish file browser
+map <leader>f :Dirvish<cr>
+
+" Open terminal
+map <leader>t :belowright terminal<cr>
 
 " Toggle spell check
 map <leader>s :set spell!<cr>
@@ -84,22 +82,8 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 " Clear screen with ctrl-l
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
-" Folding maps
-nnoremap <space> za
-vnoremap <space> zf
-
-" Make sure we can scroll in screen, but no mouse nav
-if &term == "screen"
-" set mouse=a
-  set ttymouse=xterm2
-endif 
-
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! %!sudo tee > /dev/null %
-
-" Set ruby compiler
-autocmd FileType ruby compiler ruby
-autocmd FileType ruby map <F9> :!ruby "%:p"<CR>
 
 " Some tricks for mutt
 " F1 through F3 re-wraps paragraphs in useful ways
