@@ -66,8 +66,14 @@ map <leader>f :Dirvish<cr>
 " Open terminal
 map <leader>t :belowright terminal<cr>
 
+" Open terminal
+map <leader>m
+  \ :set mouse=n<cr>
+  \ :set ttymouse=xterm2<cr>
+
 " Toggle spell check
 map <leader>s :set spell!<cr>
+
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
