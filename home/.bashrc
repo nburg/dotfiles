@@ -18,6 +18,11 @@ fi
 
 # User specific aliases and functions
 
+# Set path
+if ! [[ "$PATH" =~ "$HOME/.local/bin" ]]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
 ##### Environment Variables #####
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
