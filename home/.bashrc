@@ -2,6 +2,16 @@
 # ~/.bashrc
 
 bash_main() {
+# Load OS bash scripts
+if [ -f /etc/bashrc ]; then # Redhat/Fedora
+  . /etc/bashrc
+elif [ -f /etc/bash.bashrc ]; then # Debian/Ubuntu
+  . /etc/bash.bashrc
+  if [ -f /etc/profile.d/bash_completion.sh ]; then
+    . /etc/profile.d/bash_completion.sh
+  fi
+fi
+
 if [ -f $HOME/.dircolors ]; then
   eval $(dircolors -b $HOME/.dircolors)
 fi
