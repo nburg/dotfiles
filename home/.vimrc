@@ -66,10 +66,15 @@ map <leader>f :Dirvish<cr>
 " Open terminal
 map <leader>t :belowright terminal<cr>
 
-" Open terminal
+" Setup mouse
 map <leader>m
   \ :set mouse=n<cr>
   \ :set ttymouse=xterm2<cr>
+
+" Set title
+set title
+" set titlestring=%t
+let &titlestring = "vim: " . expand("%:t")
 
 " Toggle spell check
 map <leader>s :set spell!<cr>

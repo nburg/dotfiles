@@ -63,14 +63,8 @@ case $TERM in
   xterm*|tmux*|screen*)
     build_ps1
     ;;
-  linux) 
-    if [ -f /etc/vim/vimrc ]; then
-      alias vim="vim -u /etc/vim/vimrc"
-    fi
-    TMOUT=3600
-    ;;
   *)
-    PS1='\h \$ '
+    TMOUT=3600
     ;;
 esac
 
@@ -128,7 +122,14 @@ get_dotfiles() {
 }
 
 ssh() {
-  command ssh -t $@ '/bin/bash -c "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; bash -l'
+  if [ $# -gt 1 ]; then
+    unset send_command
+    unset opts
+  else
+    send_command='/bin/bash -c "$(if ! [ -d ~/.dotfiles ]; then wget -qO- https://git.io/JfKL9; fi)"; bash -l'
+    opts='-t'
+  fi
+  command ssh $opts $@ $send_command
 }
 
 wmip() {
