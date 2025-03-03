@@ -12,11 +12,11 @@ else
   git clone https://github.com/nburg/dotfiles.git ~/.dotfiles
 fi
 
-cd ~/.dotfiles/home
+cd ~/.dotfiles/global
 for i in `ls -A`; do
   if [ -e ~/$i ]; then
     rm -rf ~/$i
   fi
-  ln -s ~/.dotfiles/home/$i ~/$i
+  ln -s ~/.dotfiles/global/$i ~/$i
 done
 source ~/.bashrc

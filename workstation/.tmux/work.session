@@ -1,0 +1,6 @@
+new -s apps distrobox-enter mail -e mutt
+# splitw -v distrobox-enter profanity -e profanity
+new -s main distrobox-enter --clean-path -nw work -- bash
+set-option default-command 'distrobox-enter --clean-path -nw work -- bash'
+attach -t apps
+set-option default-command '${SHELL}'
