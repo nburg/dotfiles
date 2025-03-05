@@ -1,7 +1,0 @@
-current_session=$( tmux display-message -p '#S' )
-if [ $current_session == 'apps' ]; then
-  tmux switch-client -t $TMUX_LAST_SESSION
-else
-  tmux switch-client -t apps
-  tmux setenv TMUX_LAST_SESSION $current_session
-fi

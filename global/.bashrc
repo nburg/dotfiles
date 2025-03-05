@@ -5,11 +5,10 @@ bash_main() {
 # Load OS bash scripts
 if [ -f /etc/bashrc ]; then # Redhat/Fedora
   . /etc/bashrc
+  alias susu="sudo -s HOME=$HOME CONTAINER_ID=$CONTAINER_ID"
 elif [ -f /etc/bash.bashrc ]; then # Debian/Ubuntu
   . /etc/bash.bashrc
-  if [ -f /etc/profile.d/bash_completion.sh ]; then
-    . /etc/profile.d/bash_completion.sh
-  fi
+  alias susu="sudo -i HOME=$HOME CONTAINER_ID=$CONTAINER_ID"
 fi
 
 if [ -f $HOME/.dircolors ]; then
@@ -39,7 +38,6 @@ alias ll='ls -l'
 alias less='less -R'
 alias today='date +%Y%m%d'
 alias now='date +%Y%m%d%H%M'
-alias susu="sudo -s HOME=$HOME CONTAINER_ID=$CONTAINER_ID"
 
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
