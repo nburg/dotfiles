@@ -10,6 +10,9 @@ if [ -d ~/.dotfiles ]; then
   git pull
 else
   git clone https://github.com/nburg/dotfiles.git ~/.dotfiles
+  mkdir -p ~/.vim/autoload
+  cd ~/.vim/autoload
+  curl -O https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
 fi
 
 cd ~/.dotfiles/global
