@@ -142,6 +142,10 @@ weather () {
   curl wttr.in/chicago
 }
 
+osc52() {
+  printf "\033]52;c;%s\a" "$(base64 -w0)"
+}
+
 bash_main
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
